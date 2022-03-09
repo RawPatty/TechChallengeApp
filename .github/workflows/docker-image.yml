@@ -22,8 +22,7 @@ jobs:
           # Secrets are stored in project settings -> secrets
           username: ${{ secrets.ACR_USERNAME }}
           password: ${{ secrets.ACR_PASSWORD }}
-          
-      - name: Build Docker container and push to ACR
+    
       - run: |
           docker build . -t servian.azurecr.io/appdb:${{ github.sha }}
           docker push servian.azurecr.io/appdb:${{ github.sha }}
