@@ -24,8 +24,8 @@ jobs:
           password: ${{ secrets.ACR_PASSWORD }}
       - name: build and push image to ACR   
         run: |
-          docker build . -t servian.azurecr.io/appdb:${{ github.sha }}
-          docker push servian.azurecr.io/appdb:${{ github.sha }}
+          docker build . -t serviangtdacr.azurecr.io/app:${{ github.sha }}
+          docker push serviangtdacr.azurecr.io/app:${{ github.sha }}
           
   deploy:     
     runs-on: ubuntu-latest
@@ -46,7 +46,7 @@ jobs:
           # The DNS Name Label for Container with Public IP
           dns-name-label: gtdapp
           # Specify the fully qualified container image name. For example, "myregistry.azurecr.io//nginx:latest" or "python:3.7.2-alpine/"
-          image: servian.azurecr.io/appdb:${{ github.sha }}
+          image: serviangtdacr.azurecr.io.azurecr.io/app:${{ github.sha }}
           # Location where the Container will be deployed
           location: australiaeast
           # Required Memory of the Containers in GB, accurate to one decimal place
