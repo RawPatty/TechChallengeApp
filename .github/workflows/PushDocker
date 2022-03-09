@@ -1,0 +1,32 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  deploy:     
+    runs-on: ubuntu-latest
+    steps:         
+      - name: Login to Azure
+        uses: Azure/login@v1
+        with: 
+          creds: ${{ secrets.AZURE_SP_CREDS }}
+ 
+      - name: Deploy to ACI from Container registry 
+        uses: Azure/aci-deploy@v1
+        with:
+          # Name of the Resource Group in which the Container Instance will be created
+          resource-group: ServianGTD
+          # The storage account access key used to access the Azure File Share
+          cpu: 1
+          # The DNS Name Label for Container with Public IP
+          dns-name-label: gtdapp
+          # Specify the fully qualified container image name. For example, "myregistry.azurecr.io//nginx:latest" or "python:3.7.2-alpine/"
+          image: servian.azurecr.io/appdb:${{ github.sha }}
+          # Location where the Container will be deployed
+          location: australiaeast
+          # Required Memory of the Containers in GB, accurate to one decimal place
+          memory: 1.5
+          # Name of the Container Group Instance
+          name: ServianGTDApp
