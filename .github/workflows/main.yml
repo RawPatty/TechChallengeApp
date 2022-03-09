@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
   
 jobs:
-  deploy:     
+  Register:     
     runs-on: ubuntu-latest
     steps:         
       - name: Login to Azure
@@ -14,11 +14,22 @@ jobs:
  
       - name: register ACR
         run: |
-          az provider register --namespace 'Microsoft.Microsoft.ContainerInstance'
- 
-      - name: "Create Resource Group"
+          az provider register --namespace 'Microsoft.ContainerInstance'
+          
+  CreateResources: 
+    runs-on: ubuntu-latest
+    needs: Register
+    steps:
+      - name: Create Resource Group
         run: |
           az group create \
           --subscription "${{ secrets.AZURE_SUB_ID }}" \
-          --name $resourceGroup \
-          --location $location > /dev/null && echo "Resource Group Created."
+          --name "servianGTD" \
+          --location australiaeast > /dev/null && echo "Resource Group Created."
+
+      - name: Create ACR
+        run: |
+          az acr create --resource-group servianGTD --name ServianGTDACR --sku Basic
+        
+ 
+      
