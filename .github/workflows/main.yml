@@ -20,6 +20,11 @@ jobs:
     runs-on: ubuntu-latest
     needs: Register
     steps:
+      - name: Login to Azure
+        uses: Azure/login@v1.4.1
+        with: 
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+    
       - name: Create Resource Group
         run: |
           az group create \
