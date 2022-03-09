@@ -34,7 +34,7 @@ jobs:
       - name: Login to Azure
         uses: Azure/login@v1
         with: 
-          creds: ${{ secrets.AZURE_SP_CREDS }}
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
  
       - name: Deploy to ACI from Container registry 
         uses: Azure/aci-deploy@v1
