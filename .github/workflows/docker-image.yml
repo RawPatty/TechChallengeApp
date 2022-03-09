@@ -29,7 +29,13 @@ jobs:
           
   deploy:     
     runs-on: ubuntu-latest
-    steps: 
+    steps:         
+      - name: Login to Azure
+        uses: Azure/login@v1.4.3
+        with: 
+          creds: ${{ secrets.AZURE_SP_CREDS }}
+          subscription-id: ${{ secrets.AZURE_SUB_ID }}
+
       - name: Deploy to ACI from Container registry 
         uses: Azure/aci-deploy@v1
         with:
