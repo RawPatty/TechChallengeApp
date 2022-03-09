@@ -12,21 +12,23 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Code
+  # Creating image in ACR 
       - uses: actions/checkout@v2
       
-      - name: Login to ACR
       - uses: azure/docker-login@v1
         with:
           login-server: servian.azurecr.io
           # Secrets are stored in project settings -> secrets
           username: ${{ secrets.ACR_USERNAME }}
           password: ${{ secrets.ACR_PASSWORD }}
-    
+          
       - run: |
           docker build . -t servian.azurecr.io/appdb:${{ github.sha }}
           docker push servian.azurecr.io/appdb:${{ github.sha }}
           
+  deploy:     
+    runs-on: ubuntu-latest
+    steps: 
       - name: Deploy to ACI from Container registry 
       - uses: Azure/aci-deploy@v1
         with:
