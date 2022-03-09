@@ -1,0 +1,24 @@
+name: Setup Environment
+
+on:
+  workflow_dispatch:
+  
+jobs:
+  deploy:     
+    runs-on: ubuntu-latest
+    steps:         
+      - name: Login to Azure
+        uses: Azure/login@v1.4.1
+        with: 
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+ 
+      - name: register ACR
+        run: |
+          az provider register --namespace 'Microsoft.Microsoft.ContainerInstance'
+ 
+      - name: "Create Resource Group"
+        run: |
+          az group create \
+          --subscription "${{ secrets.AZURE_SUB_ID }}" \
+          --name $resourceGroup \
+          --location $location > /dev/null && echo "Resource Group Created."
