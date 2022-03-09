@@ -1,0 +1,48 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Build the Docker image
+      run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
+    
+    
+    
+    - name: Azure Container Registry Build
+      uses: Azure/acr-build@v1
+      with:
+        # Service Principal with Contributor role on the ACR
+        service_principal: "f11fe05f-fbd5-442b-8d3a-7f5e665ace5f"
+        # Service Principal password
+        service_principal_password: "lASWQQ5FXr-c_C2Ar4NbipVN7U27E1xidH"
+        # Azure Container Registry tenant
+        tenant: "37281871-00a5-4e6c-89e3-ffcc6bed0c4d"
+        # The name of the ACR, minus the .azurecr.io
+        registry: "servian.azurecr.io"
+        # Repository to use
+        repository: "https://github.com/RawPatty/TechChallengeApp"
+        # Github access token for private repositories
+        git_access_token: "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"
+        # Docker image name
+        image: # optional
+        # Docker image tag, default to the commit SHA
+        tag: # optional
+        # Branch to build from, defaults to master
+        branch: # optional
+        # The folder in the Github repo that holds the source
+        folder: 
+        # The location of the Dockerfile; defaults to ./Dockerfile
+        dockerfile: # optional
+        # JSON specifying key=value pairs as as Docker build arguments
+        build_args: # optional
