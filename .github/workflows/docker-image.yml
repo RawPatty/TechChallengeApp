@@ -13,7 +13,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
   # Creating image in ACR 
-      - uses: actions/checkout@v2
+      - name: Checkout Code
+        uses: actions/checkout@v2
       
       - uses: azure/docker-login@v1
         with:
@@ -21,8 +22,8 @@ jobs:
           # Secrets are stored in project settings -> secrets
           username: ${{ secrets.ACR_USERNAME }}
           password: ${{ secrets.ACR_PASSWORD }}
-          
-      - run: |
+      - name: build and push image to ACR   
+        run: |
           docker build . -t servian.azurecr.io/appdb:${{ github.sha }}
           docker push servian.azurecr.io/appdb:${{ github.sha }}
           
@@ -30,7 +31,7 @@ jobs:
     runs-on: ubuntu-latest
     steps: 
       - name: Deploy to ACI from Container registry 
-      - uses: Azure/aci-deploy@v1
+        uses: Azure/aci-deploy@v1
         with:
           # Name of the Resource Group in which the Container Instance will be created
           resource-group: ServianGTD
