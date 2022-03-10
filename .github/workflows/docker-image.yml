@@ -18,7 +18,7 @@ jobs:
       
       - uses: azure/docker-login@v1
         with:
-          login-server: servian.azurecr.io
+          login-server: serviangtdacr.azurecr.io
           # Secrets are stored in project settings -> secrets
           username: ${{ secrets.ACR_USERNAME }}
           password: ${{ secrets.ACR_PASSWORD }}
@@ -46,7 +46,7 @@ jobs:
           # The DNS Name Label for Container with Public IP
           dns-name-label: gtdapp
           # Specify the fully qualified container image name. For example, "myregistry.azurecr.io//nginx:latest" or "python:3.7.2-alpine/"
-          image: serviangtdacr.azurecr.io.azurecr.io/appdb:${{ github.sha }}
+          image: serviangtdacr.azurecr.io/appdb:${{ github.sha }}
           # Location where the Container will be deployed
           location: australiaeast
           # Required Memory of the Containers in GB, accurate to one decimal place
