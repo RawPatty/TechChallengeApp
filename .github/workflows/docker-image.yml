@@ -35,7 +35,13 @@ jobs:
         uses: Azure/login@v1
         with: 
           creds: ${{ secrets.AZURE_CREDENTIALS }}
- 
+      - uses: azure/docker-login@v1
+        with:
+          login-server: serviangtdacr.azurecr.io
+          # Secrets are stored in project settings -> secrets
+          username: ${{ secrets.ACR_USERNAME }}
+          password: ${{ secrets.ACR_PASSWORD }}
+          
       - name: Deploy to ACI from Container registry 
         uses: Azure/aci-deploy@v1
         with:
