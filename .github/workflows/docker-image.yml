@@ -36,13 +36,6 @@ jobs:
         with: 
           creds: ${{ secrets.AZURE_CREDENTIALS }}
           
-      - name: Azure Container Registry Login
-        uses: Azure/docker-login@v1
-        with:
-          username: ${{ secrets.ACR_USERNAME }}
-          password: ${{ secrets.ACR_PASSWORD }}
-          login-server: serviangtdacr.azurecr.io
-          
       - name: Deploy to ACI from Container registry 
         uses: Azure/aci-deploy@v1
         with:
@@ -58,4 +51,6 @@ jobs:
           location: australiaeast
           # Required Memory of the Containers in GB, accurate to one decimal place
           memory: 1.5
-          name: appdbtest-123452
+          name: appdb
+          registry-username: ${{ secrets.ACR_USERNAME }} 
+          registry-password: ${{ secrets.ACR_PASSWORD }} 
