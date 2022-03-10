@@ -12,7 +12,7 @@ jobs:
         with: 
           creds: ${{ secrets.AZURE_CREDENTIALS }}
  
-      - name: register ACR
+      - name: register ACR resource provider
         run: |
           az provider register --namespace 'Microsoft.ContainerInstance'
           
