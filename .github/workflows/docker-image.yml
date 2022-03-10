@@ -54,3 +54,4 @@ jobs:
           name: appdb
           registry-username: ${{ secrets.ACR_USERNAME }} 
           registry-password: ${{ secrets.ACR_PASSWORD }} 
+          ports: 80
