@@ -52,4 +52,4 @@ jobs:
           # Required Memory of the Containers in GB, accurate to one decimal place
           memory: 1.5
           # Name of the Container Group Instance
-          name: ServianGTDApp
+          name: gtdapp
