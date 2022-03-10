@@ -51,7 +51,7 @@ jobs:
           location: australiaeast
           # Required Memory of the Containers in GB, accurate to one decimal place
           memory: 1.5
-          name: appdb
+          name: appdb1
           registry-username: ${{ secrets.ACR_USERNAME }} 
           registry-password: ${{ secrets.ACR_PASSWORD }} 
           ports: 80
