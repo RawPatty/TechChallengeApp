@@ -55,4 +55,4 @@ jobs:
           registry-username: ${{ secrets.ACR_USERNAME }} 
           registry-password: ${{ secrets.ACR_PASSWORD }} 
           ports: 80
-          restart-policy: never
+          restart-policy: Never
